@@ -36,9 +36,6 @@
           message += ` ${mentionedMember}`;
         }
 
-        // メッセージを装飾
-        message = `**${message}**`;
-
         // Discordにメッセージを送信
         const payload = new URLSearchParams({ content: message });
         await fetch(webhookUrl, {
@@ -63,3 +60,4 @@
     </script>
   </body>
 </html>
+
