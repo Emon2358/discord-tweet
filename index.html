@@ -13,6 +13,8 @@
         <input type="text" id="webhookUrl" name="webhookUrl" required /><br />
         <label for="message">メッセージ:</label><br />
         <input type="text" id="message" name="message" required /><br />
+        <label for="mentionUserId">メンションするユーザーID:</label><br />
+        <input type="text" id="mentionUserId" name="mentionUserId" /><br />
         <button type="submit">送信</button>
       </form>
     </div>
@@ -22,7 +24,20 @@
         event.preventDefault();
 
         const webhookUrl = document.getElementById("webhookUrl").value;
-        const message = document.getElementById("message").value;
+        const messageInput = document.getElementById("message");
+        let message = messageInput.value;
+
+        // メンションするユーザーIDの取得
+        const mentionUserId = document.getElementById("mentionUserId").value;
+
+        // ユーザーIDが入力されていればメンションを追加
+        if (mentionUserId.trim() !== "") {
+          const mentionedMember = `<@${mentionUserId}>`;
+          message += ` ${mentionedMember}`;
+        }
+
+        // メッセージを装飾
+        message = `**${message}**`;
 
         // Discordにメッセージを送信
         const payload = new URLSearchParams({ content: message });
@@ -36,6 +51,10 @@
 
         // メッセージ送信後の処理
         alert("Message sent to Discord!");
+
+        // メッセージ入力欄とユーザーID入力欄をクリア
+        messageInput.value = "";
+        document.getElementById("mentionUserId").value = "";
       }
 
       document
