@@ -18,7 +18,8 @@
       #content {
         max-width: 400px;
         margin: 0 auto;
-        padding-bottom: 50px; /* Added padding-bottom to account for fixed button */
+        padding-bottom: 70px; /* Added padding-bottom to account for fixed button */
+        position: relative; /* Position relative added for absolute button positioning */
       }
       form {
         background-color: #fff;
@@ -69,9 +70,9 @@
         background-color: #007bff;
       }
       .styled-button {
-        position: fixed;
-        top: 20px;
-        right: 20px;
+        position: absolute; /* Position absolute for fixed button placement */
+        bottom: 10px; /* Adjusted bottom position */
+        right: 20px; /* Adjusted right position */
         background-color: #766d6d;
         color: #fff;
         padding: 10px;
@@ -116,6 +117,9 @@
         <input type="text" id="mentionUserId" name="mentionUserId" /><br />
         <button type="submit"><i></i>Send</button>
       </form>
+      <button class="styled-button" onclick="toggleDarkMode()">
+        <i></i>
+      </button>
     </div>
 
     <script>
@@ -157,16 +161,33 @@
         // Clear input fields
         messageInput.value = "";
         document.getElementById("mentionUserId").value = "";
+        document.getElementById("mentionUserId").value = "";
       }
 
       // Event listener for form submission
       document
         .getElementById("message-form")
         .addEventListener("submit", sendMessage);
+
+      // Function to handle dark mode toggle
+      function toggleDarkMode() {
+        const body = document.body;
+        const isDarkMode = body.classList.contains("dark-mode");
+        body.classList.toggle("dark-mode");
+        // Update button icon based on dark mode state
+        const buttonIcon = document.querySelector(".styled-button i");
+        buttonIcon.style.backgroundImage = isDarkMode
+          ? 'url("https://cdn.jsdelivr.net/npm/bootstrap-icons/icons/brightness-high.svg")'
+          : 'url("https://cdn.jsdelivr.net/npm/bootstrap-icons/icons/brightness-low.svg")';
+        // Invert button icon for dark mode
+        if (isDarkMode) {
+          buttonIcon.style.filter = "invert(0)";
+        } else {
+          buttonIcon.style.filter = "invert(1)";
+        }
+      }
     </script>
-    <button class="styled-button" onclick="toggleDarkMode()">
-      <i></i>
-    </button>
   </body>
 </html>
+
 
